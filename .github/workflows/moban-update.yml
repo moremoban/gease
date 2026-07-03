@@ -20,8 +20,6 @@ jobs:
         git diff --exit-code
     - name: Auto-commit
       if: failure()
-      uses: docker://cdssnc/auto-commit-github-action
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        args: This is an auto-commit
+        commit_message: This is an auto-commit
