@@ -15,7 +15,7 @@ jobs:
     - name: check changes
       run: |
         pip install "setuptools<80"
-        pip install moban gitfs2 pypifs moban-jinja2-github moban-ansible ruamel.yaml
+        pip install "MarkupSafe<2.1" moban gitfs2 pypifs moban-jinja2-github moban-ansible ruamel.yaml
         moban
         git status
         git diff --exit-code
