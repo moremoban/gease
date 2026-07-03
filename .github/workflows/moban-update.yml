@@ -14,6 +14,7 @@ jobs:
         python-version: '3.12'
     - name: check changes
       run: |
+        pip install setuptools
         pip install moban gitfs2 pypifs moban-jinja2-github moban-ansible ruamel.yaml
         moban
         git status
