@@ -15,6 +15,7 @@ jobs:
     - name: check changes
       run: |
         pip install "setuptools<80"
+        # Jinja2 2.11.x requires MarkupSafe<2.1 (soft_unicode was removed in 2.1+)
         pip install "MarkupSafe<2.1" moban gitfs2 pypifs moban-jinja2-github moban-ansible ruamel.yaml
         moban
         git status
