@@ -4,6 +4,9 @@ jobs:
   run_moban:
     runs-on: ubuntu-latest
     name: synchronize templates via moban
+    permissions:
+      contents: write
+      workflows: write
     steps:
     - uses: actions/checkout@v4
       with:
@@ -15,7 +18,8 @@ jobs:
     - name: check changes
       run: |
         pip install "setuptools<80"
-        pip install moban gitfs2 pypifs moban-jinja2-github moban-ansible ruamel.yaml
+        # Jinja2 2.11.x requires MarkupSafe<2.1 (soft_unicode was removed in 2.1+)
+        pip install "MarkupSafe<2.1" moban gitfs2 pypifs moban-jinja2-github moban-ansible ruamel.yaml
         moban
         git status
         git diff --exit-code
