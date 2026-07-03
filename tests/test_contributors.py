@@ -1,5 +1,4 @@
 from mock import MagicMock, patch
-from nose.tools import eq_
 
 from gease.contributors import EndPoint
 from gease.exceptions import NoGeaseConfigFound
@@ -25,10 +24,7 @@ class TestPublish:
         repo = EndPoint("test", "repo")
         contributors = repo.get_all_contributors()
 
-        eq_(
-            contributors,
-            [{"name": "hello world", "html_url": ""}],
-        )
+        assert contributors == [{"name": "hello world", "html_url": ""}]
 
     @patch("gease.contributors.get_token")
     @patch("gease.contributors.Api.get_public_api")
@@ -46,10 +42,7 @@ class TestPublish:
         repo = EndPoint("test", "repo")
         contributors = repo.get_all_contributors()
 
-        eq_(
-            contributors,
-            [{"name": "howdy", "html_url": ""}],
-        )
+        assert contributors == [{"name": "howdy", "html_url": ""}]
 
     @patch("gease.contributors.get_token")
     @patch("gease.contributors.Api.get_api")
@@ -66,7 +59,4 @@ class TestPublish:
         repo = EndPoint("test", "repo")
         contributors = repo.get_all_contributors()
 
-        eq_(
-            contributors,
-            [{"name": "howdy", "html_url": ""}],
-        )
+        assert contributors == [{"name": "howdy", "html_url": ""}]

@@ -1,12 +1,12 @@
 from mock import MagicMock, patch
-from nose.tools import eq_, raises
+import pytest
 
 import gease.exceptions as exceptions
 from gease.release import EndPoint
 
 
 class TestPublish:
-    def setUp(self):
+    def setup_method(self):
         self.patcher = patch("gease.release.Api")
         self.fake_api_singleton = self.patcher.start()
         self.fake_api = MagicMock()
@@ -15,7 +15,7 @@ class TestPublish:
         self.fake_token = self.patcher2.start()
         self.fake_token.return_value = "token"
 
-    def tearDown(self):
+    def teardown_method(self):
         self.patcher2.stop()
         self.patcher.stop()
 
@@ -26,42 +26,42 @@ class TestPublish:
         release = EndPoint("owner", "repo")
         release.publish(hello="world")
 
-    @raises(exceptions.AbnormalGithubResponse)
     def test_unknown_error(self):
         self.fake_api.return_value = MagicMock(
             create=MagicMock(return_value={})
         )
         release = EndPoint("owner", "repo")
-        release.publish(hello="world")
+        with pytest.raises(exceptions.AbnormalGithubResponse):
+            release.publish(hello="world")
 
-    @raises(exceptions.AbnormalGithubResponse)
     def test_release_exist(self):
         self.fake_api.return_value = MagicMock(
             create=MagicMock(side_effect=exceptions.ReleaseExistException)
         )
         release = EndPoint("owner", "repo")
-        release.publish(hello="world", tag_name="existing tag")
+        with pytest.raises(exceptions.AbnormalGithubResponse):
+            release.publish(hello="world", tag_name="existing tag")
 
-    @raises(exceptions.AbnormalGithubResponse)
     def test_repo_not_found(self):
         self.fake_api.return_value = MagicMock(
             create=MagicMock(side_effect=exceptions.RepoNotFoundError)
         )
         release = EndPoint("owner", "repo")
         release.republish = MagicMock(side_effect=exceptions.RepoNotFoundError)
-        release.publish(hello="world")
+        with pytest.raises(exceptions.AbnormalGithubResponse):
+            release.publish(hello="world")
 
-    @raises(exceptions.AbnormalGithubResponse)
     def test_unhandled_exception(self):
         self.fake_api.return_value = MagicMock(
             create=MagicMock(side_effect=exceptions.UnhandledException)
         )
         release = EndPoint("owner", "repo")
-        release.publish(hello="world")
+        with pytest.raises(exceptions.AbnormalGithubResponse):
+            release.publish(hello="world")
 
 
 class TestRepublish:
-    def setUp(self):
+    def setup_method(self):
         self.patcher = patch("gease.release.Orgs")
         self.fake_orgs = self.patcher.start()
         self.patcher2 = patch("gease.release.Repo")
@@ -71,7 +71,7 @@ class TestRepublish:
         self.fake_api = MagicMock()
         self.fake_api_singleton.get_api = self.fake_api
 
-    def tearDown(self):
+    def teardown_method(self):
         self.patcher3.stop()
         self.patcher2.stop()
         self.patcher.stop()
@@ -91,4 +91,4 @@ class TestRepublish:
         )
         release = EndPoint("owner", "repo")
         ret = release.republish(hello="world")
-        eq_(ret, test_url)
+        assert ret == test_url

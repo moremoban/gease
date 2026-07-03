@@ -1,5 +1,5 @@
 from mock import MagicMock, patch
-from nose.tools import raises
+import pytest
 
 from gease.rest import Api
 from gease.exceptions import (
@@ -24,11 +24,11 @@ WRONG_CREDENTIALS = {
 
 
 class TestApi:
-    def setUp(self):
+    def setup_method(self):
         self.patcher = patch("gease.rest.requests.Session")
         self.fake_session = self.patcher.start()
 
-    def tearDown(self):
+    def teardown_method(self):
         self.patcher.stop()
 
     def test_create(self):
@@ -42,7 +42,6 @@ class TestApi:
         api = Api("test")
         api.create("http://localhost/", "cool")
 
-    @raises(ReleaseExistException)
     def test_existing_release(self):
         self.fake_session.return_value = MagicMock(
             post=MagicMock(
@@ -53,9 +52,9 @@ class TestApi:
             )
         )
         api = Api("test")
-        api.create("http://localhost/", "cool")
+        with pytest.raises(ReleaseExistException):
+            api.create("http://localhost/", "cool")
 
-    @raises(AbnormalGithubResponse)
     def test_wrong_credentials(self):
         self.fake_session.return_value = MagicMock(
             post=MagicMock(
@@ -66,9 +65,9 @@ class TestApi:
             )
         )
         api = Api("test")
-        api.create("http://localhost/", "cool")
+        with pytest.raises(AbnormalGithubResponse):
+            api.create("http://localhost/", "cool")
 
-    @raises(RepoNotFoundError)
     def test_404(self):
         self.fake_session.return_value = MagicMock(
             post=MagicMock(
@@ -79,9 +78,9 @@ class TestApi:
             )
         )
         api = Api("test")
-        api.create("http://localhost/", "cool")
+        with pytest.raises(RepoNotFoundError):
+            api.create("http://localhost/", "cool")
 
-    @raises(Exception)
     def test_unknown_error(self):
         self.fake_session.return_value = MagicMock(
             post=MagicMock(
@@ -91,20 +90,21 @@ class TestApi:
             )
         )
         api = Api("test")
-        api.create("http://localhost/", "cool")
+        with pytest.raises(Exception):
+            api.create("http://localhost/", "cool")
 
-    @raises(UrlNotFound)
     def test_get_unknown_url(self):
         self.fake_session.return_value = MagicMock(
             get=MagicMock(side_effect=UrlNotFound)
         )
         api = Api("test")
-        api.get("s")
+        with pytest.raises(UrlNotFound):
+            api.get("s")
 
-    @raises(Forbidden)
     def test_get_forbidden_url(self):
         self.fake_session.return_value = MagicMock(
             get=MagicMock(side_effect=Forbidden)
         )
         api = Api("test")
-        api.get("s")
+        with pytest.raises(Forbidden):
+            api.get("s")

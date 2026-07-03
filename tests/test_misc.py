@@ -1,12 +1,11 @@
 from mock import MagicMock, patch
-from nose.tools import eq_
 
 from gease.orgs import EndPoint as Org
 from gease.repo import EndPoint as Repo
 
 
 class TestOrgEndPoint:
-    def setUp(self):
+    def setup_method(self):
         self.patcher = patch("gease.orgs.Api")
         self.fake_api_singleton = self.patcher.start()
         self.get = MagicMock()
@@ -14,7 +13,7 @@ class TestOrgEndPoint:
             return_value=MagicMock(get=self.get)
         )
 
-    def tearDown(self):
+    def teardown_method(self):
         self.patcher.stop()
 
     def test_orgs(self):
@@ -23,11 +22,11 @@ class TestOrgEndPoint:
 
         org = Org()
         response = org.get_all_organisations()
-        eq_(test_return, response)
+        assert test_return == response
 
 
 class TestRepoEndPoint:
-    def setUp(self):
+    def setup_method(self):
         self.patcher = patch("gease.repo.Api")
         self.fake_api_singleton = self.patcher.start()
         self.get = MagicMock()
@@ -35,7 +34,7 @@ class TestRepoEndPoint:
             return_value=MagicMock(get=self.get)
         )
 
-    def tearDown(self):
+    def teardown_method(self):
         self.patcher.stop()
 
     def test_repo(self):
@@ -44,4 +43,4 @@ class TestRepoEndPoint:
 
         repo = Repo()
         response = repo.get_all_repos()
-        eq_(test_return, response)
+        assert test_return == response
