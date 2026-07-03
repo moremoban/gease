@@ -1,5 +1,5 @@
-from mock import MagicMock, patch
 import pytest
+from mock import MagicMock, patch
 
 from gease.rest import Api
 from gease.exceptions import (

@@ -1,12 +1,13 @@
 """
-    contributors
-    ~~~~~~~~~~~~~
-    get a list of contributors
+contributors
+~~~~~~~~~~~~~
+get a list of contributors
 
-    :copyright: (c) 2020 by Onni Software Ltd.
-    :license: MIT License, see LICENSE for more details
+:copyright: (c) 2020 by Onni Software Ltd.
+:license: MIT License, see LICENSE for more details
 
 """
+
 import sys
 
 import crayons

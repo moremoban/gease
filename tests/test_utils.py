@@ -1,7 +1,7 @@
 import os
 
-from mock import patch
 import pytest
+from mock import patch
 
 import gease.constants as constants
 import gease.exceptions as exceptions

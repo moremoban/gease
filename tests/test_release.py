@@ -1,5 +1,5 @@
-from mock import MagicMock, patch
 import pytest
+from mock import MagicMock, patch
 
 import gease.exceptions as exceptions
 from gease.release import EndPoint

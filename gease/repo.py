@@ -1,10 +1,10 @@
 """
-    repo
-    ~~~~~~
-    Request authenticated user's repos
+repo
+~~~~~~
+Request authenticated user's repos
 
-    :copyright: (c) 2017 by Onni Software Ltd.
-    :license: MIT License, see LICENSE for more details
+:copyright: (c) 2017 by Onni Software Ltd.
+:license: MIT License, see LICENSE for more details
 
 """
 

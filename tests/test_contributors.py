@@ -1,7 +1,7 @@
 from mock import MagicMock, patch
 
-from gease.contributors import EndPoint
 from gease.exceptions import NoGeaseConfigFound
+from gease.contributors import EndPoint
 
 
 class TestPublish:

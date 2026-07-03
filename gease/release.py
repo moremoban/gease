@@ -1,11 +1,11 @@
 """
-    release
-    ~~~~~~~~~~~~~~~~~~~
+release
+~~~~~~~~~~~~~~~~~~~
 
-    Make github a release using github api
+Make github a release using github api
 
-    :copyright: (c) 2017 by Onni Software Ltd.
-    :license: MIT License, see LICENSE for more details
+:copyright: (c) 2017 by Onni Software Ltd.
+:license: MIT License, see LICENSE for more details
 
 """
 

@@ -1,11 +1,11 @@
 """
-    uritemplate
-    ~~~~~~~~~~~~~~~~~~~
+uritemplate
+~~~~~~~~~~~~~~~~~~~
 
-    template github uri with variables
+template github uri with variables
 
-    :copyright: (c) 2017-2020 by Onni Software Ltd.
-    :license: MIT License, see LICENSE for more details
+:copyright: (c) 2017-2020 by Onni Software Ltd.
+:license: MIT License, see LICENSE for more details
 
 """
 

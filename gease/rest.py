@@ -1,11 +1,11 @@
 """
-    rest
-    ~~~~~~~~~~~~~~~~~~~
+rest
+~~~~~~~~~~~~~~~~~~~
 
-    Only use post interface
+Only use post interface
 
-    :copyright: (c) 2017-2020 by Onni Software Ltd.
-    :license: MIT License, see LICENSE for more details
+:copyright: (c) 2017-2020 by Onni Software Ltd.
+:license: MIT License, see LICENSE for more details
 
 """
 
